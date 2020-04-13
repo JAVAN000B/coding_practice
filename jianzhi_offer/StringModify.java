@@ -37,10 +37,11 @@ public class StringModify {
                 newList[k] = A[i];
                 k++;
                 i++;
+            }else {
+                newList[k] = B[j];
+                k++;
+                j++;
             }
-            newList[k] = B[j];
-            k++;
-            j++;
         }
 
         while (i<A.length){
@@ -85,5 +86,12 @@ public class StringModify {
         return answer;
     }
 
+    public static void main(String[] args) {
+        StringModify machine = new StringModify();
+        int[] A = {1,2,3,4};
+        int[] B = {5,6,7,8};
+        int[] C = machine.mergeTwoList(A,B);
+        System.out.println(C);
+    }
 
 }
