@@ -1,5 +1,7 @@
 
+import	java.util.LinkedList;
 import	java.util.ArrayList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -57,19 +59,124 @@ public class MyBinaryTree<T> {
         while (node!=null || !stack.isEmpty()){
             if (node != null){
                 nodeList.add(node);
-                if (node.lNode != null){
+                if (node.rNode != null){
                     stack.push(node);
                 }
                 node = node.lNode;
             }else {
                 node = stack.pop().rNode;
                 nodeList.add(node);
+                if (node.rNode != null){
+                    stack.push(node);
+                }
                 node = node.lNode;
             }
-
         }
         return nodeList;
     }
+
+    public void preOrderTraverse2(Node root) {
+        Stack<Node> stack = new Stack<>();
+        Node node = root;
+        while (node != null || !stack.empty()) {
+            if (node != null) {
+                System.out.print(node.data + "->");
+                stack.push(node);
+                node = node.lNode;
+            } else {
+                Node tem = stack.pop();
+                node = tem.rNode;
+            }
+        }
+    }
+
+    public void inorderTraverse(Node node){
+        Stack<Node> stack = new Stack<> ();
+        while (node!= null || !stack.isEmpty()){
+            if(node!=null){
+                stack.push(node);
+                node = node.lNode;
+            }else {
+                node = stack.pop();
+                System.out.print(node.data+"->");
+                node = node.rNode;
+            }
+        }
+
+    }
+
+    public void postorderTraverse(Node root) {
+        Node cur, pre = null;
+        Stack<Node> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.empty()) {
+            cur = stack.peek();
+            if ((cur.lNode == null && cur.rNode == null) || (pre != null && (pre == cur.lNode || pre == cur.rNode))) {
+                System.out.print(cur.data + "->");
+                stack.pop();
+                pre = cur;
+            } else {
+                if (cur.rNode != null)
+                    stack.push(cur.rNode);
+                if (cur.lNode != null)
+                    stack.push(cur.lNode);
+            }
+        }
+    }
+
+
+
+
+    //递归traverse
+
+    public void preOrderTraverseIterative(Node<T> node){
+        System.out.print(node.data+"->");
+        if (node.lNode != null){
+            preOrderTraverseIterative(node.lNode);
+            if (node.rNode != null){
+                preOrderTraverseIterative(node.rNode);
+            }
+        }
+    }
+
+    public void inorderTraverseIterative(Node<T> node){
+        if (node.lNode!=null){
+            inorderTraverseIterative(node.lNode);
+        }
+        System.out.print(node.data+"->");
+        if (node.rNode!=null){
+            inorderTraverseIterative(node.rNode);
+        }
+    }
+
+    public void postorderTraverseIterative(Node<T> node){
+        if (node!=null){
+//            postorderTraverseIterative(node.lNode);
+//            postorderTraverseIterative(node.rNode);
+            if (node.lNode!=null){
+                inorderTraverseIterative(node.lNode);
+            }
+            if (node.rNode!=null){
+                inorderTraverseIterative(node.rNode);
+            }
+            System.out.print(node.data+"->");
+        }
+    }
+
+    //层次遍历
+
+     public void levelorderTraverse(Node<T> root){
+         Queue<Node<T> > queue = new LinkedList<Node<T> > ();
+         queue.add(root);
+         while (!queue.isEmpty()) {
+             Node<T> node = queue.poll();
+             System.out.print(node.data+"->");
+             if (node.lNode!=null) queue.add(node.lNode);
+             if (node.rNode!=null) queue.add(node.rNode);
+         }
+     }
+
+
 
     public static void main(String[] args) {
         MyBinaryTree<Integer> tree = new MyBinaryTree<Integer> (1);
@@ -92,7 +199,19 @@ public class MyBinaryTree<T> {
                 node[i].rNode = node[i*2+2];
         }
         ArrayList<Node<Integer>> nodelist2 = tree.preorderTraverse(node[0]);
-        System.out.println("finish");
+        tree.preOrderTraverse2(node[0]);
+        System.out.println("=======");
+        tree.preOrderTraverseIterative(node[0]);
+        System.out.println("=======");
+        tree.inorderTraverse(node[0]);
+        System.out.println("=======");
+        tree.inorderTraverseIterative(node[0]);
+        System.out.println("=======");
+        tree.postorderTraverse(node[0]);
+        System.out.println("=======");
+        tree.postorderTraverseIterative(node[0]);
+        System.out.println("=======");
+        tree.levelorderTraverse(node[0]);
     }
 
 
