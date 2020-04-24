@@ -7,7 +7,6 @@
 public class threebythreeMatric {
     threebythreeMatric(){}
     public void findPossibleSolution(){
-        int[] used =new int[9];
         int[] matrix = {1,2,3,4,5,6,7,8,9};
         insertValue(matrix,0);
 

@@ -1,8 +1,7 @@
 /**
  * @Classname listAll
  * @Description TODO
- * @Author Minghui Sun, Fengjie Gu
- * @Version 1.0
+ * @Author Minghui Sun,
  */
 public class listAll {
     public listAll(){}
@@ -110,7 +109,7 @@ public class listAll {
 
     public static void main(String[] args) {
         listAll ListAll = new listAll();
-        //ListAll.showAll(100);
+        ListAll.showAll(10);
         ListAll.bigNumPlus(new String[]{"1", "9","7","5","9"}, new String[]{"1", "8"});
     }
 
